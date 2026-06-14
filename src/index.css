@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-primary: 'Playfair Display', Georgia, serif;
+    --font-secondary: 'DM Sans', system-ui, sans-serif;
+    --font-accent: 'Cormorant Garamond', Georgia, serif;
+
+    --brand-orange: 30 93% 50%;
+    --brand-orange-hover: 27 95% 44%;
+    --brand-orange-light: 36 100% 94%;
+    --brand-orange-muted: 30 93% 50%;
+
+    --black: 0 0% 4%;
+    --charcoal: 0 0% 10%;
+    --dark-gray: 0 0% 17%;
+    --medium-gray: 0 0% 40%;
+    --light-gray: 0 0% 67%;
+    --border-gray: 0 0% 88%;
+    --off-white: 36 27% 96%;
+    --pure-white: 0 0% 100%;
+
+    --background: 0 0% 100%;
+    --foreground: 0 0% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 4%;
+    --primary: 30 93% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 36 27% 96%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 30 93% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 30 93% 50%;
+    --radius: 0.5rem;
+
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    --shadow-card-hover: 0 16px 48px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-orange-glow: 0 8px 32px rgba(244,130,10,0.25);
+    --shadow-bottle: 0 24px 80px rgba(0,0,0,0.5), 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    font-family: var(--font-secondary);
+    @apply bg-background text-foreground;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-primary);
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes floatBottle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-14px) rotate(0.5deg); }
+  75% { transform: translateY(-8px) rotate(-0.5deg); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@layer utilities {
+  .font-primary {
+    font-family: var(--font-primary);
+  }
+  .font-secondary {
+    font-family: var(--font-secondary);
+  }
+  .font-accent {
+    font-family: var(--font-accent);
+  }
+  .animate-float-bottle {
+    animation: floatBottle 4s ease-in-out infinite;
+  }
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  .animate-rotate-slow {
+    animation: rotateSlow 20s linear infinite;
+  }
+  .animate-rotate-slow-reverse {
+    animation: rotateSlow 30s linear infinite reverse;
+  }
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
+  .animate-bounce-down {
+    animation: bounceDown 2s ease-in-out infinite;
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .animate-fade-in-left {
+    animation: fadeInLeft 0.8s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .animate-fade-in-right {
+    animation: fadeInRight 0.8s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .animate-shimmer {
+    animation: shimmer 8s linear infinite;
+  }
+  .text-display-xl {
+    font-family: var(--font-primary);
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 1.0;
+    letter-spacing: -2px;
+    font-weight: 700;
+  }
+  .text-display-lg {
+    font-family: var(--font-primary);
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    font-weight: 700;
+  }
+  .text-display-md {
+    font-family: var(--font-primary);
+    font-size: clamp(2.375rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    font-weight: 600;
+  }
+  .text-label {
+    font-family: var(--font-secondary);
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .text-marquee {
+    font-family: var(--font-secondary);
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.25em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .text-pull-quote {
+    font-family: var(--font-accent);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1.4;
+    font-weight: 300;
+    font-style: italic;
+  }
+}
+
+/* Scroll reveal */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Marquee pause on hover */
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbar for testimonials */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-element, .reveal-left, .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition-duration: 0.01ms;
+  }
+  .animate-float-bottle,
+  .animate-pulse-glow,
+  .animate-rotate-slow,
+  .animate-rotate-slow-reverse,
+  .animate-marquee {
+    animation: none;
+  }
+}
