@@ -53,12 +53,24 @@
 
   * {
     @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
   }
 
   body {
     font-family: var(--font-secondary);
     @apply bg-background text-foreground;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
   }
 
   h1, h2, h3 {
@@ -154,23 +166,23 @@
   }
   .text-display-xl {
     font-family: var(--font-primary);
-    font-size: clamp(3.5rem, 6vw, 6rem);
-    line-height: 1.0;
-    letter-spacing: -2px;
+    font-size: clamp(2.25rem, 7vw, 6rem);
+    line-height: 1.05;
+    letter-spacing: -1px;
     font-weight: 700;
   }
   .text-display-lg {
     font-family: var(--font-primary);
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    line-height: 1.05;
-    letter-spacing: -1.5px;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    letter-spacing: -1px;
     font-weight: 700;
   }
   .text-display-md {
     font-family: var(--font-primary);
-    font-size: clamp(2.375rem, 4vw, 3.5rem);
-    line-height: 1.1;
-    letter-spacing: -1px;
+    font-size: clamp(1.75rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
     font-weight: 600;
   }
   .text-label {
@@ -191,7 +203,7 @@
   }
   .text-pull-quote {
     font-family: var(--font-accent);
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-size: clamp(1.2rem, 3vw, 2rem);
     line-height: 1.4;
     font-weight: 300;
     font-style: italic;

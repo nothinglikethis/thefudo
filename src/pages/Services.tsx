@@ -48,14 +48,14 @@ const Services = () => {
 
       {/* Service Panels */}
       {services.map((service, i) => (
-        <section key={i} className={`py-24 lg:py-32 ${i % 2 === 0 ? 'bg-background' : 'bg-fudo-off-white'}`}>
-          <div className="container mx-auto px-5 lg:px-10">
-            <div className={`grid lg:grid-cols-2 gap-16 items-center ${service.reverse ? 'direction' : ''}`}>
+        <section key={i} className={`py-16 sm:py-24 lg:py-32 ${i % 2 === 0 ? 'bg-background' : 'bg-fudo-off-white'}`}>
+          <div className="container mx-auto px-4 sm:px-5 lg:px-10">
+            <div className={`grid lg:grid-cols-2 gap-10 sm:gap-16 items-center ${service.reverse ? 'direction' : ''}`}>
               <div className={service.reverse ? 'lg:order-2 reveal-left' : 'reveal-left'}>
                 <p className="text-label text-primary mb-4 tracking-widest">{service.subtitle.toUpperCase()}</p>
-                <h2 className="font-primary text-4xl font-semibold text-foreground mb-6">{service.title}</h2>
-                <p className="font-secondary text-lg text-muted-foreground leading-relaxed mb-8">{service.desc}</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                <h2 className="font-primary text-2xl sm:text-4xl font-semibold text-foreground mb-6">{service.title}</h2>
+                <p className="font-secondary text-base sm:text-lg text-muted-foreground leading-relaxed mb-6 sm:mb-8">{service.desc}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 sm:mb-8">
                   {service.features.map((f) => (
                     <div key={f} className="flex items-center gap-2 font-secondary text-sm text-foreground">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
@@ -65,14 +65,14 @@ const Services = () => {
                 </div>
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill transition-all duration-300 hover:bg-brand-orange-hover hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-primary text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill transition-all duration-300 hover:bg-brand-orange-hover hover:-translate-y-0.5"
                 >
                   Get Started
                 </Link>
               </div>
               <div className={service.reverse ? 'lg:order-1 reveal-right' : 'reveal-right'}>
                 <div className="flex justify-center">
-                  <img src={bottleHero} alt={service.title} className="h-[350px] object-contain drop-shadow-xl" loading="lazy" width={400} height={600} />
+                  <img src={bottleHero} alt={service.title} className="h-[250px] sm:h-[350px] object-contain drop-shadow-xl" loading="lazy" width={400} height={600} />
                 </div>
               </div>
             </div>
@@ -81,17 +81,17 @@ const Services = () => {
       ))}
 
       {/* Event Showcases */}
-      <section className="py-24 lg:py-32 bg-fudo-charcoal">
-        <div className="container mx-auto px-5 lg:px-10">
-          <div className="text-center mb-16">
+      <section className="py-16 sm:py-24 lg:py-32 bg-fudo-charcoal">
+        <div className="container mx-auto px-4 sm:px-5 lg:px-10">
+          <div className="text-center mb-10 sm:mb-16">
             <p className="reveal-element text-label text-primary mb-4 tracking-widest">EVENT SHOWCASES</p>
             <h2 className="reveal-element text-display-md text-primary-foreground">Fudo in Action</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {showcases.map((s) => (
-              <div key={s.title} className="reveal-element bg-fudo-dark-gray p-8 rounded-lg hover:bg-[#2A2A2A] transition-colors">
+              <div key={s.title} className="reveal-element bg-fudo-dark-gray p-6 sm:p-8 rounded-lg hover:bg-[#2A2A2A] transition-colors">
                 <p className="font-secondary text-xs text-primary tracking-widest uppercase mb-3">{s.location}</p>
-                <h3 className="font-primary text-2xl font-semibold text-primary-foreground mb-3">{s.title}</h3>
+                <h3 className="font-primary text-xl sm:text-2xl font-semibold text-primary-foreground mb-3">{s.title}</h3>
                 <p className="font-secondary text-sm text-primary-foreground/55 leading-relaxed">{s.desc}</p>
               </div>
             ))}
@@ -100,21 +100,21 @@ const Services = () => {
       </section>
 
       {/* CTA Strip */}
-      <section className="py-16 bg-primary">
-        <div className="container mx-auto px-5 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <h2 className="font-primary text-3xl font-semibold text-primary-foreground">How can we help?</h2>
-          <div className="flex gap-4">
+      <section className="py-12 sm:py-16 bg-primary">
+        <div className="container mx-auto px-4 sm:px-5 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <h2 className="font-primary text-2xl sm:text-3xl font-semibold text-primary-foreground text-center sm:text-left">How can we help?</h2>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
             <Link
               to="/contact"
-              className="px-8 py-3.5 border-2 border-primary-foreground text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill hover:bg-primary-foreground hover:text-primary transition-all"
+              className="text-center px-6 sm:px-8 py-3 sm:py-3.5 border-2 border-primary-foreground text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill hover:bg-primary-foreground hover:text-primary transition-all"
             >
               Contact Fudo
             </Link>
             <a
-              href="https://wa.me/917016547502"
+              href="https://wa.me/918866545492"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3.5 bg-primary-foreground text-primary font-secondary text-sm font-medium tracking-widest uppercase rounded-pill hover:bg-primary-foreground/90 transition-all"
+              className="text-center px-6 sm:px-8 py-3 sm:py-3.5 bg-primary-foreground text-primary font-secondary text-sm font-medium tracking-widest uppercase rounded-pill hover:bg-primary-foreground/90 transition-all"
             >
               WhatsApp Us
             </a>

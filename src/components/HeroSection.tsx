@@ -24,17 +24,17 @@ export const HeroSection = ({ overline, title, subtitle, dark = true, background
         <div className="absolute inset-0 bg-fudo-black/60" />
       </div>
     )}
-    <div className="container mx-auto px-5 lg:px-10 relative z-10 text-center py-32">
+    <div className="container mx-auto px-4 sm:px-5 lg:px-10 relative z-10 text-center py-24 sm:py-32">
       {overline && (
-        <p className="text-label text-primary mb-6 tracking-widest animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <p className="text-label text-primary mb-4 sm:mb-6 tracking-widest animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           {overline}
         </p>
       )}
-      <h1 className="text-display-lg text-primary-foreground mb-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+      <h1 className="text-display-lg text-primary-foreground mb-4 sm:mb-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
         {title}
       </h1>
       {subtitle && (
-        <p className="font-secondary text-lg text-primary-foreground/65 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+        <p className="font-secondary text-base sm:text-lg text-primary-foreground/65 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           {subtitle}
         </p>
       )}

@@ -1,21 +1,24 @@
 import { useState, FormEvent } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
+const ZAPIER_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/27188458/u7lz780/';
+
 const departments = ['General Enquiry', 'Bulk Supply', 'Distribution', 'Event Partnership', 'Media & PR', 'Feedback'];
 
 const Contact = () => {
   const revealRef = useScrollReveal();
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
     const newErrors: Record<string, boolean> = {};
 
     ['name', 'phone', 'email', 'department', 'message'].forEach((field) => {
-      if (!data.get(field)?.toString().trim()) newErrors[field] = true;
+      if (!formData.get(field)?.toString().trim()) newErrors[field] = true;
     });
 
     if (Object.keys(newErrors).length > 0) {
@@ -23,7 +26,32 @@ const Contact = () => {
       return;
     }
 
-    setSubmitted(true);
+    setLoading(true);
+    console.log('Sending to Zapier...');
+    try {
+      // Send as FormData - NO Content-Type header needed (CORS friendly)
+      const response = await fetch(ZAPIER_WEBHOOK, {
+        method: 'POST',
+        body: formData, // FormData automatically sets correct headers
+      });
+
+      console.log('Zapier Response Status:', response.status);
+
+      if (response.ok) {
+        form.reset();
+        setErrors({});
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000); // Reset after 5 seconds
+      } else {
+        console.error('Zapier Error:', response.statusText);
+        alert('Failed to submit enquiry. Please try again.');
+      }
+    } catch (error) {
+      console.error('Fetch Error:', error);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass = (field: string) =>
@@ -32,16 +60,16 @@ const Contact = () => {
   return (
     <div ref={revealRef}>
       {/* Hero */}
-      <section className="bg-fudo-black pt-32 pb-20">
-        <div className="container mx-auto px-5 lg:px-10 text-center">
+      <section className="bg-fudo-black pt-28 sm:pt-32 pb-16 sm:pb-20">
+        <div className="container mx-auto px-4 sm:px-5 lg:px-10 text-center">
           <p className="text-label text-primary mb-4 tracking-widest animate-fade-in-up">CONTACT</p>
           <h1 className="text-display-lg text-primary-foreground animate-fade-in-up" style={{ animationDelay: '0.15s' }}>Get In Touch</h1>
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-background">
-        <div className="container mx-auto px-5 lg:px-10">
-          <div className="grid lg:grid-cols-2 gap-16">
+      <section className="py-16 sm:py-24 lg:py-32 bg-background">
+        <div className="container mx-auto px-4 sm:px-5 lg:px-10">
+          <div className="grid lg:grid-cols-2 gap-10 sm:gap-16">
             {/* Form */}
             <div className="reveal-left">
               {submitted ? (
@@ -66,7 +94,7 @@ const Contact = () => {
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="phone" className="block font-secondary text-sm font-medium text-foreground mb-1.5">Phone *</label>
-                      <input id="phone" name="phone" type="tel" className={inputClass('phone')} placeholder="+91 70165 47502" onChange={() => setErrors(e => ({ ...e, phone: false }))} />
+                      <input id="phone" name="phone" type="tel" className={inputClass('phone')} placeholder="+91 8866545492" onChange={() => setErrors(e => ({ ...e, phone: false }))} />
                     </div>
                     <div>
                       <label htmlFor="email" className="block font-secondary text-sm font-medium text-foreground mb-1.5">Email *</label>
@@ -92,9 +120,10 @@ const Contact = () => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-10 py-3.5 bg-primary text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill transition-all duration-300 hover:bg-brand-orange-hover hover:-translate-y-0.5 hover:shadow-lg"
+                    disabled={loading}
+                    className="w-full sm:w-auto px-10 py-3.5 bg-primary text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill transition-all duration-300 hover:bg-brand-orange-hover hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Send Enquiry →
+                    {loading ? 'Sending...' : 'Send Enquiry →'}
                   </button>
                 </form>
               )}
@@ -111,7 +140,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-foreground mb-1">Phone</p>
-                    <a href="tel:+917016547502" className="hover:text-primary transition-colors">+91 70165 47502</a>
+                    <a href="tel:+918866545492" className="hover:text-primary transition-colors">+91 8866545492</a>
                   </div>
                   <div>
                     <p className="font-semibold text-foreground mb-1">Email</p>
@@ -124,22 +153,22 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Map placeholder */}
-              <div className="bg-fudo-off-white rounded-lg h-64 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-muted to-muted/50" />
-                <div className="relative z-10 text-center">
-                  <div className="w-8 h-8 mx-auto mb-2 bg-primary rounded-full flex items-center justify-center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                      <circle cx="12" cy="9" r="2.5" />
-                    </svg>
-                  </div>
-                  <p className="font-secondary text-sm text-muted-foreground">Canal Road, Surat</p>
-                </div>
+              {/* Google Maps */}
+              <div className="rounded-lg h-64 overflow-hidden">
+                <iframe
+                  title="Fudo Beverages Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.8!2d72.8347!3d21.1702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEwJzEyLjciTiA3MsKwNTAnMDUuMCJF!5e1!3m2!1sen!2sin!4v1&q=Canal+Road+Near+Bullet+Train+Track+Surat+Gujarat+395010"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, display: 'block' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
 
               <a
-                href="https://wa.me/917016547502"
+                href="https://wa.me/918866545492"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full px-8 py-3.5 bg-primary text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill transition-all duration-300 hover:bg-brand-orange-hover"
@@ -152,11 +181,11 @@ const Contact = () => {
       </section>
 
       {/* Phone strip */}
-      <section className="py-12 bg-primary text-center">
-        <div className="container mx-auto px-5">
-          <p className="font-primary text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">+91 70165 47502</p>
+      <section className="py-10 sm:py-12 bg-primary text-center">
+        <div className="container mx-auto px-4 sm:px-5">
+          <p className="font-primary text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">+91 8866545492</p>
           <a
-            href="https://wa.me/917016547502"
+            href="https://wa.me/918866545492"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 border-2 border-primary-foreground text-primary-foreground font-secondary text-sm font-medium tracking-widest uppercase rounded-pill hover:bg-primary-foreground hover:text-primary transition-all"
